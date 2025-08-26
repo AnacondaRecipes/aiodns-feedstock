@@ -1,0 +1,4 @@
+channels:
+  - https://staging.continuum.io/prefect/fs/pycares-feedstock/pr4/b2bda33
+  - https://staging.continuum.io/prefect/fs/cython-feedstock/pr26/dd0091b
+  - https://staging.continuum.io/prefect/fs/winloop-feedstock/pr1/47ba898

@@ -1,42 +1,55 @@
 {% set name = "aiodns" %}
-{% set version = "3.0.0" %}
+{% set version = "3.5.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 946bdfabe743fceeeb093c8a010f5d1645f708a241be849e17edfb0e49e08cd6
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: 11264edbab51896ecf546c18eb0dd56dff0428c6aa6d2cd87e643e07300eb310
 
 build:
-  noarch: python
-  number: 2
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
+    - setuptools
+    - wheel
   run:
-    - python >=3.6
-    - pycares >=4.0.0
+    - python
+    - pycares >=4.9.0
+    - uvloop >=0.21.0  # [not win]
+    - winloop >=0.1.8  # [win]
 
 test:
+  source_files:
+    - tests
   imports:
     - aiodns
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest tests
+  requires:
+    - pip
+    - pytest >8.4.1
 
 about:
-  home: https://github.com/saghul/aiodns
+  home: https://github.com/aio-libs/aiodns
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'Simple DNS resolver for asyncio'
+  summary: Simple DNS resolver for asyncio
   description: |
     aiodns provides a simple way for doing asynchronous DNS resolutions using
     pycares.
-  doc_url: https://github.com/saghul/aiodns
-  dev_url: https://github.com/saghul/aiodns
+  doc_url: https://github.com/aio-libs/aiodns/blob/master/README.rst
+  dev_url: https://github.com/aio-libs/aiodns
 
 extra:
   recipe-maintainers:
