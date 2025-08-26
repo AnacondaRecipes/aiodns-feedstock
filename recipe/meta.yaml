@@ -37,7 +37,8 @@ test:
     - pytest tests
   requires:
     - pip
-    - pytest
+    - pytest >=8.4.1
+    - pytest-tornasync
 
 about:
   home: https://github.com/aio-libs/aiodns
