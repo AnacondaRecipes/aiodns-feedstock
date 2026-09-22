@@ -1,5 +1,5 @@
 {% set name = "aiodns" %}
-{% set version = "3.6.1" %}
+{% set version = "4.0.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,22 +7,22 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: b0e9ce98718a5b8f7ca8cd16fc393163374bc2412236b91f6c851d066e3324b6
+    sha256: cb10e0c0d2591636716ad2fe402e977c16d71bdaf76bb8cb49e8a6633596f736
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py<39]
+  skip: true  # [py<310]
 
 requirements:
   host:
     - python
     - pip
     - setuptools
-    - wheel
+    - pycares
   run:
     - python
-    - pycares >=4.9.0,<5
+    - pycares >=5.0.0,<6
     - uvloop >=0.22.1  # [not win]
     - winloop >=0.3.1  # [win]
 
