@@ -34,7 +34,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest tests
+    - pytest tests --asyncio-mode=auto
   requires:
     - pip
     - pytest >=8.4.1
