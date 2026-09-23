@@ -23,8 +23,6 @@ requirements:
   run:
     - python
     - pycares >=5.0.0,<6
-    - uvloop >=0.22.1  # [not win]
-    - winloop >=0.3.1  # [win]
 
 test:
   source_files:
@@ -40,6 +38,8 @@ test:
     - pytest >=8.4.1
     - pytest-asyncio
     - pytest-cov
+    - uvloop >=0.22.1  # [not win]
+    - winloop >=0.3.1  # [win]
 
 about:
   home: https://github.com/aio-libs/aiodns
